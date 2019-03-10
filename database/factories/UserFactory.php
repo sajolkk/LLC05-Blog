@@ -24,17 +24,20 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
         'name' => $faker->name,
     	 'email' => $faker->unique()->safeEmail,
     	 'password' => Hash::make('123456'),
-    	 'user_id' => random_int(100, 1000),
+    	 'user_id' => random_int(10, 10000),
     	 'user_name' => $faker->unique()->userName,
     	 'image' => $faker->imageUrl(),
-    	 'remember_token' => str_random(10)
+         'remember_token' => str_random(10),
+         'email_verified_at' => \Carbon\Carbon::now(),
+         'email_verified' => 1,
+    	 'email_verification_token' => '',
     ];
 });
 
 $factory->define(App\Models\Category::class, function (Faker $faker) {
 	$category = $faker->name;
     return [
-        'category_id' => random_int(100,1000),
+        'category_id' => random_int(10,10000),
     	'name' => $category,
     	'slug' => str_slug($category)
     	 

@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Models\User;
+use App\Mail\EmailVerification;
+use Carbon\Carbon;
 use Validator;
 use Session;
 use Hash;
+use Mail;
 session_start();
 class RegisterController extends Controller
 {
@@ -59,13 +62,13 @@ class RegisterController extends Controller
     	$image = $request->file('image');
     	$path = str_random(5).'.'.$image->getClientOriginalExtension();
     	if ($image->isValid()) {
-    		$result = $image->storeAs('user_img',$path);
+    		$img_success = $image->storeAs('user_img',$path);
     	}
         $user_id = User::max('user_id') + 1;
         if ($user_id == 1) {
             $user_id = 101;
         }
-    	if ($result) {
+    	if ($img_success) {
     		$data = array();
             $data['user_id'] = $user_id;
             $data['name'] = $request->name;
@@ -73,9 +76,33 @@ class RegisterController extends Controller
             $data['email'] = $request->email;
             $data['password'] = Hash::make($request->password);
             $data['image'] = 'Images/user_img/'.$path;
+            $data['email_verification_token'] = str_random(30);
 
-            User::insert($data);
-    		return redirect()->back();
+            $result = User::insert($data);
+            if ($result) {
+                Mail::to($request->email)->send(new EmailVerification($data));
+                return redirect()->back();
+            }
+    		
     	}
     }
+
+
+
+    public function verified($token)
+    {
+        $check = User::where('email_verification_token', $token)->first();
+        if (isset($check)) {
+            $data = array();
+            $data['email_verification_token'] = '';
+            $data['email_verified'] = 1;
+            $data['email_verified_at'] = Carbon::now();
+            User::where('email_verification_token', $token)->update($data);
+            return redirect(route('login'));
+        }else{
+            echo "Fail";
+        }
+    }
+
+
 }

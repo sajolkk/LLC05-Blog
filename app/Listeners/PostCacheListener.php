@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Listeners;
-
+use App\Models\Post;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 

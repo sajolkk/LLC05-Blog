@@ -19,6 +19,7 @@ Route::get('/', 'Frontend\FrontendController@index')->name('.');
 
 Route::get('user/register','RegisterController@index')->name('user.register');
 Route::post('user/register','RegisterController@submit');
+Route::get('user/verified/{token}','RegisterController@verified')->name('user.verified');
 
 		// backend/ dashboard category route
 
