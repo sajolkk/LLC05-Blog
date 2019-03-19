@@ -9,7 +9,10 @@ use App\Events\PostUpdated;
 use App\Events\PostDeleted;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-
+use App\Events\PostCreated;
+use App\Events\PostUpdated;
+use App\Events\PostDeleted;
+use App\Listeners\PostCacheListener;
 class EventServiceProvider extends ServiceProvider
 {
     /**
