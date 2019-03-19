@@ -22,15 +22,26 @@
       @csrf
       <div class="form-group">
         <label>Post Title :</label>
-        <input type="text" name="name" value="{{ old('name') }}"  class="form-control"> 
+        <input type="text" name="title" value="{{ old('title') }}"  class="form-control"> 
       </div> 
 
       <div class="form-group">
         <label>Post Content :</label>
-        <input type="text" name="slug" value="{{ old('slug') }}"  class="form-control"> 
+        <textarea name="content" class="form-control" >{{ old('content') }}</textarea>
+       
       </div> 
 
       <div class="form-group">
+        <select name="category_id" class="form-control" >
+          <option value="">Select Category</option>
+          @foreach($category as $cat)
+            <option value="{{ $cat->category_id }}"  >{{ $cat->name }}</option>
+          @endforeach
+          
+        </select>
+      </div>
+
+        <div class="form-group">
       	<select name="status" class="form-control" >
       		<option value="">Select Status</option>
       		<option value="1">Active</option>

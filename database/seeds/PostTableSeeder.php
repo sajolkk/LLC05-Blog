@@ -25,6 +25,6 @@ class PostTableSeeder extends Seeder
 
    //      ]);
 
-    	factory(App\Models\Post::class, 50)->create();
+    	factory(App\Models\Post::class, 20)->create();
     }
 }

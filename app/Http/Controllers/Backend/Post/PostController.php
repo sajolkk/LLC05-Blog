@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Backend\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use Validator;
+use App\Models\Category;
 use Auth;
 class PostController extends Controller
 {
@@ -20,6 +22,7 @@ class PostController extends Controller
     public function index()
     {
         $post = Post::with('category','user')->orderby('id','desc')->paginate(5);
+
         return view('backend.post.all-post',compact('post'));
     }
 
@@ -30,7 +33,10 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('backend.post.add-post');
+
+        $data = [];
+        $data['category'] = Category::all();
+        return view('backend.post.add-post', $data);
     }
 
     /**
@@ -41,7 +47,32 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $check = Validator::make($request->all(),[
+            'title' => 'required',
+            'content' => 'required',
+            'category_id' => 'required',
+            'status' => 'required',
+        ]);
+
+        if ($check->fails()) {
+            return back()->withErrors($check)->withInput();
+        }
+
+        $data = array();
+        $data['title'] = $request->title;
+        $data['content'] = $request->content;
+        $data['category_id'] = $request->category_id;
+        $data['status'] = $request->status;
+        $data['user_id'] = Auth::user()->user_id;
+        //$data['user_id'] = Auth::user()->user_id;
+
+        $result = Post::insert($data);
+        if ($result) {
+            cache()->forget('aritcle');
+            $post = Post::with('category','user')->orderby('created_at','desc')->take(20)->get();
+            cache()->forever('aritcle', $post);
+            return redirect()->back();
+        }
     }
 
     /**

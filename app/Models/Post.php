@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Events\PostCreated;
+use App\Events\PostUpdated;
+use App\Events\PostDeleted;
 class Post extends Model
 {
     
