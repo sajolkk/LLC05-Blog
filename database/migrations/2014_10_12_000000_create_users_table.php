@@ -21,11 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('user_name',64)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->tinyInteger('email_verified')->nullable();
-<<<<<<< HEAD
-            $table->string('email_verified_token');
-=======
             $table->string('email_verification_token');
->>>>>>> 410237d996ffaee1e31a130c767ce90312165ebe
             $table->string('password',88);
             $table->string('image',88)->nullable();
             $table->softDeletes();

@@ -80,7 +80,7 @@ class RegisterController extends Controller
 
             $result = User::insert($data);
             if ($result) {
-                Mail::to($request->email)->send(new EmailVerification($data));
+                Mail::to($request->email)->queue(new EmailVerification($data));
                 return redirect()->back();
             }
     		

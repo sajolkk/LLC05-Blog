@@ -2,10 +2,7 @@
 
 namespace App\Listeners;
 use App\Models\Post;
-<<<<<<< HEAD
 use Illuminate\Support\Facades\Cache;
-=======
->>>>>>> 410237d996ffaee1e31a130c767ce90312165ebe
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Validator;

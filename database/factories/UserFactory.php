@@ -21,10 +21,9 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
         // 'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
         // 'remember_token' => str_random(10),
 
-        'name' => $faker->name,
+         'name' => $faker->name,
     	 'email' => $faker->unique()->safeEmail,
     	 'password' => Hash::make('123456'),
-<<<<<<< HEAD
     	 'user_id' => random_int(1, 1000),
     	 'user_name' => $faker->unique()->userName,
     	 'image' => $faker->imageUrl(),
@@ -32,7 +31,6 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
          'email_verified_at' => \Carbon\Carbon::now(),
          'email_verified' => 1,
          'email_verified_token' => '',
-=======
     	 'user_id' => random_int(10, 10000),
     	 'user_name' => $faker->unique()->userName,
     	 'image' => $faker->imageUrl(),
@@ -40,18 +38,14 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
          'email_verified_at' => \Carbon\Carbon::now(),
          'email_verified' => 1,
     	 'email_verification_token' => '',
->>>>>>> 410237d996ffaee1e31a130c767ce90312165ebe
     ];
 });
 
 $factory->define(App\Models\Category::class, function (Faker $faker) {
 	$category = $faker->name;
     return [
-<<<<<<< HEAD
         'category_id' => random_int(1,1000),
-=======
         'category_id' => random_int(10,10000),
->>>>>>> 410237d996ffaee1e31a130c767ce90312165ebe
     	'name' => $category,
     	'slug' => str_slug($category)
     	 
